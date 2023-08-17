@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -10,7 +11,10 @@ public class PlayerMovement : MonoBehaviour
     public int forward_force ;
     public int sideways_force;
     private double speedup;
+    public Button left;
+    public Button right;
     public GameObject collide;
+
 
     void Start()
     {
@@ -19,8 +23,25 @@ public class PlayerMovement : MonoBehaviour
         rb.AddForce(0, 0, 0);
         speedup = 1;
         HitEffect();
+        left.onClick.AddListener(() =>
+        {
+            moveL();
+        });
+        right.onClick.AddListener(() =>
+        {
+            moveR();
+        });
 
-      //  Invoke("Update", 4);
+        //  Invoke("Update", 4);
+    }
+    void moveL()
+    {
+        rb.AddForce(-sideways_force * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
+    }
+
+    void moveR()
+    {
+        rb.AddForce(sideways_force * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
     }
 
     // Update is called once per frame
